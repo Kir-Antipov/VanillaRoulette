@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>VanillaRoulette.js</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/default.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="libs/vanillaRoulette/vanillaRoulette.min.css">
+</head>
+
+<body>
+
+    <!-- Top Line -->
+    <div class="top-line flex flex-jcc">
+        <div class="top-line__container container">
+            <h1 class="top-line__title">VanillaRoulette.js</h1>
+            <a class="top-line__github-link github-link" href="https://github.com/Kir-Antipov/VanillaRoulette">GitHub</a>
+        </div>
+    </div>
+
+    <!-- Roulette Preview -->
+    <section class="preview section flex flex-jcc">
+        <div class="preview__container container">
+            <h2 class="preview__headline large-headline">Roulette preview</h2>
+
+            <div class="preview__roulette roulette"></div>
+
+            <div class="preview__dev">
+                <div class="preview__options">
+                    <div class="preview__settings">
+                        <h3 class="preview__headline small-headline">Options</h3>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__value"><span>Acceleration</span><span><b>350</b></span></div>
+                            <div class="settings-group__input">
+                                <input id="input-acc" class="input-range" min="10" max="1000" value="350" type="range">
+                            </div>
+                        </div>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__value"><span>FPS</span><span><b>40</b></span></div>
+                            <div class="settings-group__input">
+                                <input id="input-fps" class="input-range" value="40" min="20" max="240" type="range">
+                            </div>
+                        </div>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__value"><span>Prize Index</span><span><b>10</b></span></div>
+                            <div class="settings-group__input">
+                                <input id="input-prize" class="input-range" min="0" max="19" value="10" type="range">
+                            </div>
+                        </div>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__value"><span>Tracks</span><span><b>1</b></span></div>
+                            <div class="settings-group__input">
+                                <input id="input-tracks" class="input-range" min="0" max="20" value="1" type="range">
+                            </div>
+                        </div>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__value"><span>Time</span><span><b>0</b></span></div>
+                            <div class="settings-group__input">
+                                <input id="input-seconds" class="input-range" min="0" max="60" value="0" type="range">
+                            </div>
+                        </div>
+                        <div class="preview__label settings-group">
+                            <div class="settings-group__input">
+                                <label>
+                                    <input id="input-random" class="input-checkbox" type="checkbox"> &#8291;Randomize position on prize
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview__controls">
+                        <a id="start" class="button button--primary" href="#">Start roulette</a>
+                        <a id="stop" class="button button--secondary" href="#">Stop roulette</a>
+                    </div>
+                    <div id="current-prize" class="preview__label settings-group">
+                        <div class="settings-group__value">Prize:</div>
+                        <div class="roulette__prize prize-item prize-item--yellow">7</div>
+                    </div>
+                </div>
+                <div class="preview__code">
+                    <div class="preview__source code-box">
+                        <h3 class="code-box__title small-headline">JavaScript Code</h3>
+                        <pre class="code-box__source"><code class="js">
+let options = {
+
+    spacing: 10,      
+    
+    acceleration: 350, 
+
+    fps: 40, 
+
+    audio: "libs/roulette/click.wav",
+
+    selector: ":scope > *",
+
+    stopCallback: function({detail: { prize }}) {
+        console.log("stop");
+        console.log(`Selected prize index is: ${prize.index}`);
+    },
+
+    startCallback: function({detail: { prize }}) {
+        console.log("start");
+    }
+};
+
+let roulette = new Roulette(".roulette", options);
+
+document.getElementById("start").addEventListener("click", function() {
+    roulette.rotateTo(10, { tracks: 1, random: true });
+});
+
+document.getElementById("stop").addEventListener("click", function() {
+    roulette.stop();
+});
+                        </code></pre>
+                    </div>
+                    <div class="preview__source code-box">
+                        <h3 class="code-box__title small-headline">HTML Code</h3>
+                        <pre class="code-box__source"><code class="html">
+&lt;div class="roulette">
+    &lt;div>0&lt;/div>
+    &lt;div>1&lt;/div>
+    &lt;div>2&lt;/div>
+    &lt;div>3&lt;/div>
+    ...
+&lt;/div>
+
+&lt;button id="start">Start roulette&lt;/button>
+&lt;button id="stop">Stop roulette&lt;/button>
+
+&lt;link href="libs/vanillaRoulette/vanillaRoulette.min.css" rel="stylesheet">
+&lt;script src="libs/vanillaRoulette/vanillaRoulette.min.js">&lt;/script>
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Initialization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        const prizes = 20;
+        const rouletteNode = document.querySelector(".roulette");
+        const colors = ["green", "yellow", "pink", "purple", "teal"];
+
+        for (let i = 0; i < prizes; ++i) {
+            let el = document.createElement("div");
+            el.classList.add("prize-item");
+            el.classList.add(`prize-item--${colors[Math.floor(Math.random() * colors.length)]}`);
+            el.innerText = i;
+            rouletteNode.appendChild(el);
+        }
+
+        const accRange = document.getElementById("input-acc");
+        const fpsRange = document.getElementById("input-fps");
+        const prizeRange = document.getElementById("input-prize");
+        const tracksRange = document.getElementById("input-tracks");
+        const secondsRange = document.getElementById("input-seconds");
+        const ranges = [accRange, fpsRange, prizeRange, tracksRange, secondsRange];
+        const randomCheck = document.getElementById("input-random");
+
+        [randomCheck, accRange, fpsRange, prizeRange].forEach(input => input.addEventListener("change", updateCodeBlocks));
+        prizeRange.max = prizes - 1;
+
+        tracksRange.addEventListener("change", () => swap(tracksRange, secondsRange));
+        secondsRange.addEventListener("change", () => swap(secondsRange, tracksRange));
+
+        function swap(firstInput, secondInput) {
+            if (Number(firstInput.value))
+            {
+                secondInput.value = 0;
+                updateCodeBlocks();
+            }
+            else if (!Number(secondInput.value))
+                updateCodeBlocks();
+        }
+
+        function updateCodeBlocks() {
+            ranges.forEach(updateRangeLabel);
+            [...document.querySelectorAll("code .hljs-number")].slice(1, 3).forEach((x, i) => x.innerText = ranges[i].value);
+            document.querySelector("code .hljs-literal").innerText = String(randomCheck.checked);
+
+            const selectedInput = Number(tracksRange.value) ? tracksRange : secondsRange;
+            const keywordField = document.querySelectorAll("code .hljs-attr")[7];
+            const inputName = selectedInput.parentNode.parentNode.querySelector("span").innerText.toLowerCase();
+            keywordField.innerText = inputName;
+            const keywordValue = document.querySelectorAll("code .hljs-number")[4];
+            keywordValue.innerText = selectedInput.value;
+        }
+
+        function updateRangeLabel(input) {
+            input.parentNode.parentNode.querySelector("b").innerText = input.value;
+        }
+
+        setTimeout(updateCodeBlocks, 100);
+    </script>
+
+    <!-- Roulette Initialization -->
+    <script src="libs/vanillaRoulette/vanillaRoulette.min.js"></script>
+    <script>
+        let options = {
+            stopCallback: function ({ detail: { prize } }) {
+                console.log("stop");
+                console.log(`Selected prize index is: ${prize.index}`);
+                updateCurrentPrize();
+            },
+
+            startCallback: () => console.log("start")
+        };
+
+        let roulette = new Roulette(".roulette", options);
+
+        document.getElementById("start").addEventListener("click", function (e) {
+            e.preventDefault();
+            roulette.fps = fpsRange.value;
+            roulette.acceleration = accRange.value;
+            let options = { random: randomCheck.checked };
+            if (Number(tracksRange.value))
+                options.tracks = tracksRange.value;
+            else
+                options.time = secondsRange.value;
+            roulette.rotateTo(Number(prizeRange.value), options);
+        });
+
+        document.getElementById("stop").addEventListener("click", function (e) {
+            e.preventDefault();
+            roulette.stop();
+        });
+
+        window.addEventListener("resize", updateCurrentPrize);
+        updateCurrentPrize();
+
+        function updateCurrentPrize() {
+            const currentPrize = document.getElementById("current-prize");
+            currentPrize.querySelector(".prize-item").remove();
+            currentPrize.appendChild(roulette.selectedPrize.element.cloneNode(true));
+        }
+
+    </script>
+</body>
+
+</html>

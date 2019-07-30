@@ -1,0 +1,282 @@
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    color: #333;
+    font-family: 'Roboto';
+    background: #ECEFF1;
+    min-height: 100vh;
+    width: 100%;
+}
+.flex {
+    display: flex;
+}
+.flex-jcc {
+    justify-content: center;
+}
+.container {
+    display: flex;
+    width: 1000px;
+}
+
+/* ---------------------- Top Line ---------------------- */
+
+.top-line {
+    color: #fff;
+    background: #212121;
+}
+.top-line__container {
+    align-items: center;
+    justify-content: space-between;
+}
+.top-line__title {
+    font-size: 20px;
+}
+
+/* ---------------------- Preview ---------------------- */
+
+.preview__container {
+    flex-direction: column;
+}
+.preview__roulette {
+    margin-bottom: 30px;
+}
+.preview__dev {
+    display: flex;
+}
+.preview__options {
+    width: 30%;
+}
+.preview__code {
+    width: 70%;
+}
+.preview__options {
+    padding-right: 30px;
+}
+.preview__label {
+    margin-bottom: 20px;
+}
+.preview__label:last-child {
+    margin-bottom: 0px;
+}
+.preview__settings {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e4e4e4;
+}
+.preview__controls {
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+}
+.preview__controls .button:first-child {
+    margin-bottom: 10px;
+}
+.preview__source {
+    margin-bottom: 20px;
+}
+
+/* ---------------------- Roulette ---------------------- */
+
+.roulette {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: 0.5s all;
+}
+.roulette:before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    background: #03A9F4;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+}
+.roulette:hover {
+    box-shadow: 0px 50px 90px rgba(0, 0, 0, 0.08);
+}
+.roulette__list {
+    display: flex;
+}
+.roulette__prize {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+.prize-item {
+    width: 80px;
+    height: 80px;
+    border: 2px solid;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 75px;
+    color: #000;
+    font-family: 'Roboto';
+    font-size: 20px;
+}
+
+.prize-item--green     { border-color:#4CAF50 }
+.prize-item--yellow    { border-color:#FBC02D }
+.prize-item--pink      { border-color:#F06292 }
+.prize-item--purple    { border-color:#AB47BC }
+.prize-item--teal      { border-color:#4DB6AC }
+
+
+/* ---------------------- All Components ---------------------- */
+
+/* Large Headline */
+.large-headline {
+    font-size: 35px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    color: #111;
+}
+/* Small Headline */
+.small-headline {
+    font-size: 25px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* GitHub Button */
+.github-link {
+    display: block;
+    color: #fff;
+    padding: 20px;
+    background: #292929;
+    text-decoration: none;
+}
+
+/* Section */
+.section {
+    padding: 50px 0px;
+}
+
+/* Settings Group */
+.settings-group__value {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.settings-group__input .input-text {
+    width: 100%;
+}
+
+/* Input Text */
+.input-text {
+    height: 40px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    font-weight: normal;
+    padding-left: 10px;
+    border-radius: 3px;
+    border: 1px solid #e4e4e4;
+}
+
+/* Input Range */
+.input-range {
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    transition: 0.3s all;
+}
+/* thumb */
+.input-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: #1E88E5;
+    margin-top: -6px;
+    cursor: pointer;
+}
+.input-range::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: #1E88E5;
+    cursor: pointer;
+}
+/* track */
+.input-range::-moz-range-track {
+    width: 100%;
+    height: 7px;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.input-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 7px;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+.button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.button--primary {
+    color: #fff;
+    background: #1E88E5;
+}
+.button--secondary {
+    color: #607D8B;
+    border: 1px solid #B0BEC5;
+}
+
+/* Code Box */
+.code-box__source {
+    font-family: 'Ubuntu Mono';
+    border: 1px solid #B0BEC5;
+    padding: 10px;
+}
+.code-box__source xmp {
+    font-family: 'Ubuntu Mono';
+}
+
+/* ---------------------- Media ---------------------- */
+
+@media screen and (max-width: 1100px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .preview__dev {
+        flex-direction: column;
+    }
+    .preview__options {
+        padding-right: 0px;
+        margin-bottom: 20px;
+    }
+    .preview__options,
+    .preview__code {
+        width: 100%;
+    }
+    .container {
+        width: 90%;
+    }
+}
