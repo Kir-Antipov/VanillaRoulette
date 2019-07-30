@@ -5,4 +5,4 @@
 
 ### DEMO
 
-You can see demo [here](http://demo.kir_antipov.info/VanillaRoulette/sample/index.html) :)
+You can see demo [here](https://kir-antipov.github.io/VanillaRoulette/sample/index.html) :)
