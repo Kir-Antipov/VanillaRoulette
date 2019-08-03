@@ -1,4 +1,4 @@
-let Roulette = (function () {
+const Roulette = (function () {
     
     const rotationStopEventName = "rotationStop";
     const rotationStartEventName = "rotationStart";
@@ -13,6 +13,8 @@ let Roulette = (function () {
     const NotEnoughArgumentsException = "Not enough arguments";
     const ContainerUndefinedException = "Container was undefined";
     const RotationIsAlreadyActiveException = "Rotation is already active";
+
+    const rotationTokens = new WeakMap();
 
     class Prize {
 
@@ -88,7 +90,7 @@ let Roulette = (function () {
             this.prizeWidth = maxWidth;
             this.audio = player;
             this.fps = fps;
-            this.rotationToken = -1;
+            rotationTokens.set(this, -1);
 
             if (startCallback)
                 this.container.addEventListener(rotationStartEventName, startCallback);
@@ -108,10 +110,13 @@ let Roulette = (function () {
         rotateTo(block, options) {
             if (this.rotates)
                 throw RotationIsAlreadyActiveException;
-            let prize = typeof block === "number" ? this.findPrize({ index: block }) : this.findPrize({ element: block });
+            let numBlock = Number(block);
+            let prize = Number.isNaN(numBlock) ? this.findPrize({ element: block }) : this.findPrize({ index: numBlock });
             if (!prize)
                 throw PrizeNotFoundException;
             let { tracks = 0, time = 0, random = true, backward = false } = options || {};
+            time |= 0;
+            tracks |= 0;
             if (this.selectedPrize.index === prize.index && !time && !tracks)
                 return;
             if (time)
@@ -138,8 +143,8 @@ let Roulette = (function () {
 
         stop() {
             if (this.rotates) {
-                clearInterval(this.rotationToken);
-                this.rotationToken = -1;
+                clearInterval(rotationTokens.get(this));
+                rotationTokens.set(this, -1);
                 this.container.dispatchEvent(new CustomEvent(rotationStopEventName, { detail: { prize: this.selectedPrize } }));
             }
         }
@@ -162,7 +167,7 @@ let Roulette = (function () {
         }
 
         get rotates() {
-            return this.rotationToken > -1;
+            return rotationTokens.get(this) > -1;
         }
 
         get center() {
@@ -170,7 +175,7 @@ let Roulette = (function () {
         }
 
         static get version() {
-            return "1.0.0";
+            return "1.1.0";
         }
     }
 
@@ -193,7 +198,7 @@ let Roulette = (function () {
         let played = false;
         let halfBlock = this.spacing + this.prizeWidth / 2;
 
-        this.rotationToken = setInterval(() => {
+        let token = setInterval(() => {
 
             if (t > totalTime) {
                 this.stop();
@@ -219,6 +224,8 @@ let Roulette = (function () {
             t += intervalS;
 
         }, intervalMS);
+
+        rotationTokens.set(this, token);
     }
 
     function rotateBackward(pixels) {

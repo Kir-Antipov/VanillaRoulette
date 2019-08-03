@@ -185,7 +185,7 @@ document.getElementById("stop").addEventListener("click", function() {
 
         function updateCodeBlocks() {
             ranges.forEach(updateRangeLabel);
-            [...document.querySelectorAll("code .hljs-number")].slice(1, 3).forEach((x, i) => x.innerText = ranges[i].value);
+            [...document.querySelectorAll("code .hljs-number")].slice(1, 4).forEach((x, i) => x.innerText = ranges[i].value);
             document.querySelector("code .hljs-literal").innerText = String(randomCheck.checked);
 
             const selectedInput = Number(tracksRange.value) ? tracksRange : secondsRange;
@@ -227,7 +227,7 @@ document.getElementById("stop").addEventListener("click", function() {
                 options.tracks = tracksRange.value;
             else
                 options.time = secondsRange.value;
-            roulette.rotateTo(Number(prizeRange.value), options);
+            roulette.rotateTo(prizeRange.value, options);
         });
 
         document.getElementById("stop").addEventListener("click", function (e) {
